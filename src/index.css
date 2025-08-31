@@ -1,0 +1,123 @@
+/* App container */
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card */
+.todo-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Title */
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Input section */
+.input-section {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.task-input {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 0.8rem;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.task-input:focus {
+  border-color: #2575fc;
+}
+
+.add-btn {
+  background: #2575fc;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-btn:hover {
+  background: #1e5edc;
+}
+
+/* Task list */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.9rem;
+  margin-bottom: 0.6rem;
+  background: #f8f9fa;
+  border-radius: 0.8rem;
+  transition: transform 0.2s ease, background 0.3s;
+}
+
+.task-item:hover {
+  transform: scale(1.02);
+  background: #eef2f7;
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.task-text {
+  cursor: pointer;
+  flex: 1;
+  text-align: left;
+}
+
+/* Delete button */
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: crimson;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.delete-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
