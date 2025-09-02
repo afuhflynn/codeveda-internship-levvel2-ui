@@ -103,7 +103,7 @@ body {
   content: "";
   position: absolute;
   inset: 0 0 auto 0;
-  height: auto;
+  height: 300px;
   background: center/cover no-repeat var(--bg-img-desktop);
   z-index: -1;
   filter: saturate(1.05) contrast(1.05) brightness(0.9);
@@ -343,9 +343,6 @@ body {
 
 /* Responsive */
 @media screen and (min-width: 900px) {
-  .hero::before {
-    height: 300px;
-  }
   .hero {
     padding-bottom: 3rem;
   }
@@ -357,9 +354,5 @@ body {
   }
   .controls {
     grid-template-columns: auto 1fr;
-  }
-  .hero::before {
-    height: 300px;
-    background: center/cover no-repeat var(--bg-img-mobile);
   }
 }
