@@ -20,8 +20,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="hero-content">
           <h1>Welcome to Your Modern Todo App</h1>
-          <p>Stay productive, stay organized — manage your tasks with ease.</p>
-          <Link to="/dashboard">
+          <Link to={user ? "/dashboard" : "/signin"}>
             <button className="cta-btn">Get Started</button>
           </Link>
         </div>
