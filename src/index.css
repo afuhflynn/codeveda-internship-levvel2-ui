@@ -198,6 +198,11 @@ body {
   line-height: 1.45;
   outline: none;
   cursor: text;
+  padding: 0.5rem 0rem 0.5rem 0.4rem;
+}
+.todo-text:hover {
+  border: var(--line) 1px solid;
+  border-radius: 8px;
 }
 .todo.done .todo-text {
   color: var(--muted);

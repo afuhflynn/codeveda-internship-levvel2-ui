@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { GlobalContext } from "./providers/context-provider";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useEffect } from "react";
+import { useCallback } from "react";
 
 const TodoItem = ({
   todo,
@@ -11,16 +13,22 @@ const TodoItem = ({
   visibleIndex,
 }) => {
   const [dragIndex, setDragIndex] = useState(null);
+  const [absoluteIndex, setAbsoluteIndex] = useState(null);
   const { markComplete, deleteTodoItem, reorder, todos } =
     useContext(GlobalContext);
 
   // Map visible items’ index to actual index in full list for drag reorder
-  const getAbsoluteIndex = (visibleIdx) => {
-    const id = filtered[visibleIdx]?.id;
-    return todos.findIndex((t) => t.id === id);
-  };
+  const getAbsoluteIndex = useCallback(
+    (visibleIdx) => {
+      const id = filtered[visibleIdx]?.id;
+      return todos.findIndex((t) => t.id === id);
+    },
+    [filtered, todos]
+  );
 
-  const absoluteIndex = getAbsoluteIndex(visibleIndex);
+  useEffect(() => {
+    setAbsoluteIndex(getAbsoluteIndex(visibleIndex));
+  }, [visibleIndex, setAbsoluteIndex, getAbsoluteIndex, dragIndex]);
 
   const toggleComplete = async (id) => {
     try {
