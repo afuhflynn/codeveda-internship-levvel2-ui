@@ -4,30 +4,30 @@
   flex-direction: column;
   gap: 4rem;
   padding: 1.5rem;
-  color: #f8f9fa;
+  color: var(--fg);
   overflow: hidden;
 }
 
 /* Hero Section */
-.hero {
+.home-hero {
   display: flex;
   align-items: center;
   gap: 2rem;
-  background: linear-gradient(135deg, #1a1f36, #0d1117);
+  background-color: var(--card);
   padding: 2rem;
   border-radius: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   flex-wrap: wrap;
 }
 
 .hero-content h1 {
-  font-size: clamp(1rem, 5vw, 2rem);
+  font-size: clamp(1.4rem, 5vw, 1.8rem);
   text-align: center;
   margin-bottom: clamp(0.7rem, 5vw, 0rem);
 }
 
 .cta-btn {
-  background: #3b82f6;
+  background: var(--accent);
   color: white;
   padding: 0.8rem 1.5rem;
   border: none;
@@ -38,5 +38,5 @@
 }
 
 .cta-btn:hover {
-  background: #2563eb;
+  background: var(--accent-hover);
 }

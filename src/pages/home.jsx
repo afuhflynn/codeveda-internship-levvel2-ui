@@ -17,7 +17,7 @@ export default function HomePage() {
   return (
     <div className="home">
       {/* Hero Section */}
-      <section className="hero">
+      <section className="home-hero">
         <div className="hero-content">
           <h1>Welcome to Your Modern Todo App</h1>
           <Link to={user ? "/dashboard" : "/signin"}>

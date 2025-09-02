@@ -4,6 +4,7 @@ import { serverURL } from "../../constants";
 import axios from "axios";
 import { toast } from "sonner";
 import { useCallback } from "react";
+import useTheme from "../../hooks/use-theme";
 
 const GlobalContext = createContext();
 
@@ -12,11 +13,41 @@ const ContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [todos, setTodos] = useState([]);
+  const { theme, toggle: toggleTheme } = useTheme();
 
+  // handle todo reorder on the screen
+  const reorder = (fromIndex, toIndex) => {
+    setTodos((prev) => {
+      const arr = [...prev];
+      const [moved] = arr.splice(fromIndex, 1);
+      arr.splice(toIndex, 0, moved);
+      return arr;
+    });
+  };
+
+  // handle clear and delete completed todos
+  const clearCompleted = async () => {
+    setIsLoading(true);
+    try {
+      const res = await privateAxios.delete(`/todos/clearcomplete`);
+      const data = res.data;
+      if (!data?.todos) {
+        return toast.warning("An unexpected error occurred. Try again later.");
+      }
+      setTodos((prev) => prev.filter((td) => !td.complete));
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.response?.data?.error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // get user profile from api
   const getUserProfile = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await privateAxios.get(`${serverURL}/users/me`);
+      const res = await privateAxios.get(`/users/me`);
 
       const data = res.data;
 
@@ -186,6 +217,10 @@ const ContextProvider = ({ children }) => {
     markComplete,
     updateTodoItem,
     deleteTodoItem,
+    theme,
+    toggleTheme,
+    reorder,
+    clearCompleted,
   };
   return (
     <GlobalContext.Provider value={contextValue}>

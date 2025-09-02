@@ -9,18 +9,19 @@ export default function Modal({ initialValue, onClose, onSave }) {
 
   return (
     <div className="modal-overlay">
-      <div className="modal">
+      <div className="modal card">
         <h2>Edit Todo</h2>
         <input
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          className="auth-input"
         />
         <div className="modal-actions">
-          <button onClick={handleSave} className="save">
+          <button onClick={handleSave} className="auth-btn modal-save-btn">
             Save
           </button>
-          <button onClick={onClose} className="cancel">
+          <button onClick={onClose} className="modal-cancel-btn">
             Cancel
           </button>
         </div>

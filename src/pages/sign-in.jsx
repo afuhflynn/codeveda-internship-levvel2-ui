@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { GlobalContext } from "../components/providers/context-provider";
+import "../styles/auth.css";
 
 export default function SigninPage() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -50,7 +51,7 @@ export default function SigninPage() {
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
+      <div className="card auth-card">
         <h2 className="auth-title">Sign In</h2>
         <form className="auth-form" onSubmit={handleSubmit}>
           <input
@@ -60,6 +61,7 @@ export default function SigninPage() {
             value={form.email}
             onChange={handleChange}
             required
+            className="auth-input"
           />
           <input
             type="password"
@@ -68,6 +70,7 @@ export default function SigninPage() {
             value={form.password}
             onChange={handleChange}
             required
+            className="auth-input"
           />
           <button type="submit" className="auth-btn" disabled={isLoading}>
             {isLoading ? "Signin in..." : "Sign In"}
