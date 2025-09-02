@@ -70,7 +70,7 @@ privateAxios.interceptors.response.use(
         processQueue(err, null);
 
         if (typeof window !== "undefined") {
-          window.location.href = "/login";
+          window.location.href = "/signin";
         }
 
         return Promise.reject(err);
