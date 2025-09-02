@@ -3,6 +3,7 @@ import { privateAxios } from "../../config/axios.config";
 import { serverURL } from "../../constants";
 import axios from "axios";
 import { toast } from "sonner";
+import { useCallback } from "react";
 
 const GlobalContext = createContext();
 
@@ -12,7 +13,7 @@ const ContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [todos, setTodos] = useState([]);
 
-  const getUserProfile = async () => {
+  const getUserProfile = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await privateAxios.get(`${serverURL}/users/me`);
@@ -20,14 +21,14 @@ const ContextProvider = ({ children }) => {
       const data = res.data;
 
       setUser(data.user);
-      await getAllTodos();
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
-  };
-  const getAllTodos = async () => {
+  }, []);
+
+  const getAllTodos = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await privateAxios.get(`/todos`);
@@ -43,12 +44,11 @@ const ContextProvider = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     getUserProfile();
-    getAllTodos();
-  }, []);
+  }, [getUserProfile]);
 
   const createTodo = async (value) => {
     setIsLoading(true);

@@ -19,9 +19,14 @@ export default function Todos() {
     markComplete,
     updateTodoItem,
     deleteTodoItem,
+    getAllTodos,
   } = useContext(GlobalContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getAllTodos();
+  }, [getAllTodos]);
 
   useEffect(() => {
     if (!user && !isLoading) {

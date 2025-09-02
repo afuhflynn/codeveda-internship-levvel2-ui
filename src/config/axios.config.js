@@ -3,79 +3,30 @@ import { serverURL } from "../constants";
 
 export const privateAxios = axios.create({
   baseURL: serverURL,
-  withCredentials: true, // includes cookies
+  withCredentials: true, // send cookies always
 });
-
-let isRefreshing = false;
-let failedQueue = [];
-
-const processQueue = (error, token = null) => {
-  failedQueue.forEach((prom) => {
-    if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
-    }
-  });
-  failedQueue = [];
-};
 
 privateAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
+    // // block request if 403
+    // if (error.response?.status === 403) {
+    //   return Promise.reject(error);
+    // }
+    // If 401, try to refresh once
     if (error.response?.status === 401 && !originalRequest._retry) {
-      if (isRefreshing) {
-        // Queue requests while refresh is in progress
-        return new Promise((resolve, reject) => {
-          failedQueue.push({ resolve, reject });
-        })
-          .then((token) => {
-            // Attach the fresh token to the failed request
-            originalRequest.headers = {
-              ...originalRequest.headers,
-              Authorization: `Bearer ${token}`,
-            };
-            return privateAxios(originalRequest);
-          })
-          .catch((err) => Promise.reject(err));
-      }
-
       originalRequest._retry = true;
-      isRefreshing = true;
 
       try {
-        // Call refresh endpoint (cookies handle refreshToken automatically)
-        const response = await privateAxios.post("/users/refresh-token");
+        // Ask server for fresh cookies
+        await privateAxios.post(`/users/refresh-token`);
 
-        const { accessToken } = response.data;
-
-        if (!accessToken) {
-          throw new Error("Refresh token expired or invalid");
-        }
-
-        // Update headers for queued requests
-        processQueue(null, accessToken);
-
-        // Attach new token and retry original request
-        originalRequest.headers = {
-          ...originalRequest.headers,
-          Authorization: `Bearer ${accessToken}`,
-        };
-
+        // Retry the original request with cookies (no token juggling needed)
         return privateAxios(originalRequest);
       } catch (err) {
-        // Refresh token failed: force logout / redirect
-        processQueue(err, null);
-
-        if (typeof window !== "undefined") {
-          window.location.href = "/signin";
-        }
-
         return Promise.reject(err);
-      } finally {
-        isRefreshing = false;
       }
     }
 

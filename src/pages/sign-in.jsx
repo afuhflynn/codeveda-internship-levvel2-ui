@@ -8,11 +8,7 @@ export default function SigninPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn, user, getUserProfile } = useContext(GlobalContext);
-
-  useEffect(() => {
-    getUserProfile();
-  }, [getUserProfile]);
+  const { signIn, user } = useContext(GlobalContext);
 
   useEffect(() => {
     if (user && !isLoading) {
