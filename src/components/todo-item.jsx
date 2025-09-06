@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { GlobalContext } from "./providers/context-provider";
 import { useState } from "react";
-import { toast } from "sonner";
 import { useEffect } from "react";
 import { useCallback } from "react";
 
@@ -35,7 +34,6 @@ const TodoItem = ({
       await markComplete(id);
     } catch (error) {
       console.error(error);
-      toast.error(`An error occurred. Try again later`);
     }
   };
 
@@ -44,7 +42,6 @@ const TodoItem = ({
       await deleteTodoItem(id);
     } catch (error) {
       console.error(error);
-      toast.error(`An error occurred. Try again later`);
     }
   };
 

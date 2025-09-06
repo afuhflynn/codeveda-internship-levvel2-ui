@@ -7,29 +7,15 @@ export const privateAxios = axios.create({
 });
 
 privateAxios.interceptors.response.use(
-  (response) => response,
+  (res) => res,
   async (error) => {
-    const originalRequest = error.config;
-
-    // // block request if 403
-    // if (error.response?.status === 403) {
-    //   return Promise.reject(error);
-    // }
-    // If 401, try to refresh once
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
-      try {
-        // Ask server for fresh cookies
-        await privateAxios.post(`/users/refresh-token`);
-
-        // Retry the original request with cookies (no token juggling needed)
-        return privateAxios(originalRequest);
-      } catch (err) {
-        return Promise.reject(err);
-      }
+    const prevRequest = error?.config;
+    if (error?.response?.status === 401 && !prevRequest?.sent) {
+      prevRequest.sent = true;
+      const res = await privateAxios.get("/users/refresh-token");
+      const newAccessToken = res.data.accessToken;
+      prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+      return privateAxios(prevRequest);
     }
-
-    return Promise.reject(error);
   }
 );

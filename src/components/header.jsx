@@ -1,6 +1,5 @@
 import { useContext, useRef, useState } from "react";
 import { GlobalContext } from "./providers/context-provider";
-import { toast } from "sonner";
 
 const Header = () => {
   const [input, setInput] = useState("");
@@ -12,14 +11,11 @@ const Header = () => {
       setInput("");
     } catch (error) {
       console.error(error);
-
-      toast.error(`An error occurred. Try again later`);
     }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     await addTodo(input);
-    setInput("");
     inputRef.current?.focus();
   };
 

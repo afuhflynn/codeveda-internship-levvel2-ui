@@ -37,7 +37,9 @@ const ContextProvider = ({ children }) => {
       setTodos((prev) => prev.filter((td) => !td.complete));
     } catch (error) {
       console.error(error);
-      toast.error(error?.response?.data?.error);
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.error);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -54,6 +56,9 @@ const ContextProvider = ({ children }) => {
       setUser(data.user);
     } catch (error) {
       console.error(error);
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.error);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -72,6 +77,9 @@ const ContextProvider = ({ children }) => {
       setTodos(data.todos);
     } catch (error) {
       console.error(error);
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.error);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -98,6 +106,9 @@ const ContextProvider = ({ children }) => {
       if (error.status === 409) {
         toast.error(`Item: ${value} already exists.`);
       }
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.error);
+      }
       throw Error(error);
     } finally {
       setIsLoading(false);
@@ -123,6 +134,9 @@ const ContextProvider = ({ children }) => {
       );
     } catch (error) {
       console.error(error);
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.error);
+      }
       throw Error(error);
     } finally {
       setIsLoading(false);
@@ -148,6 +162,9 @@ const ContextProvider = ({ children }) => {
       if (error.status === 409) {
         toast.error(`Item: ${updatedText} already exists.`);
       }
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.error);
+      }
       throw new Error(error);
     } finally {
       setIsLoading(false);
@@ -167,6 +184,9 @@ const ContextProvider = ({ children }) => {
       setTodos(todos.filter((todo) => todo.id !== id));
     } catch (error) {
       console.error(error);
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.error);
+      }
       throw new Error(error);
     } finally {
       setIsLoading(false);
@@ -179,6 +199,9 @@ const ContextProvider = ({ children }) => {
 
       return data.success;
     } catch (error) {
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.error);
+      }
       throw new Error(error);
     }
   };
@@ -195,19 +218,17 @@ const ContextProvider = ({ children }) => {
       setUser(data.user);
       return data.success;
     } catch (error) {
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.error);
+      }
       throw new Error(error);
     }
-  };
-
-  const signOut = () => {
-    setUser(null);
   };
 
   // context provider value object
   const contextValue = {
     user,
     signIn,
-    signOut,
     getUserProfile,
     signUp,
     isLoading,

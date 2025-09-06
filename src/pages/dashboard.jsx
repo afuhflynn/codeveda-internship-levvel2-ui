@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../components/modal";
 import Header from "../components/header";
 import TodoList from "../components/todo-list";
-import { toast } from "sonner";
 
 export default function Todos() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,7 +31,6 @@ export default function Todos() {
       setCurrentTodo(null);
     } catch (error) {
       console.error(error);
-      toast.error(`An error occurred. Try again later`);
     }
   };
   return (
