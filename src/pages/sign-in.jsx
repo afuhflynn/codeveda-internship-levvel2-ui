@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { GlobalContext } from "../components/providers/context-provider";
 import "../styles/auth.css";
@@ -77,7 +77,7 @@ export default function SigninPage() {
           </button>
         </form>
         <p className="auth-switch">
-          Don’t have an account? <a href="/signup">Sign Up</a>
+          Don’t have an account? <Link to="/signup">Sign Up</Link>
         </p>
       </div>
     </div>

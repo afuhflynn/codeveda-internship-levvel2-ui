@@ -4,6 +4,7 @@ import SigninPage from "./pages/sign-in";
 import SignupPage from "./pages/sign-up";
 import HomePage from "./pages/home";
 import Todos from "./pages/dashboard";
+import { NotFoundPage } from "./pages/not-found";
 
 export default function App() {
   return (
@@ -13,7 +14,7 @@ export default function App() {
         <Route path="/dashboard" element={<Todos />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="*" element={<SigninPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

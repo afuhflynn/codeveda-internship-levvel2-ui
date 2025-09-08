@@ -24,10 +24,10 @@ export default function HomePage() {
             fast, and beautifully designed.
           </p>
           <div className="hero-buttons">
-            <Link to={user ? "/dashboard" : "/sign-up"}>
+            <Link to={user ? "/dashboard" : "/signup"}>
               <button className="cta-btn primary">Create Free Account</button>
             </Link>
-            <Link to="/sign-in">
+            <Link to="/signin">
               <button className="cta-btn secondary">Sign In</button>
             </Link>
           </div>

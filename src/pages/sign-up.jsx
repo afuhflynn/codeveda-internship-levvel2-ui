@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { GlobalContext } from "../components/providers/context-provider";
 import "../styles/auth.css";
@@ -79,7 +79,7 @@ export default function SignupPage() {
           </button>
         </form>
         <p className="auth-switch">
-          Already have an account? <a href="/signin">Sign In</a>
+          Already have an account? <Link to="/signin">Sign In</Link>
         </p>
       </div>
     </div>
